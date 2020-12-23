@@ -20,12 +20,25 @@ public class NewBehaviourScript : MonoBehaviour
 
             m.Add(obj[i].GetComponent<Rigidbody>().mass);
             radius_v.Add(obj[i].transform.position);
-            obj[i].GetComponent<Rigidbody>().AddForce(impulse, ForceMode.Impulse);
+            obj[i].GetComponent<Rigidbody>().AddForce(impulse,ForceMode.Impulse);
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            sphere.transform.position = new Vector3(0, 0, 0);
+            sphere.transform.parent = transform;
+            obj.Add(sphere); 
+            sphere.AddComponent<Rigidbody>();
+            sphere.AddComponent<SphereCollider>();
+            sphere.GetComponent<Rigidbody>().mass = 100;
+            sphere.GetComponent<Rigidbody>().useGravity = false;
+            sphere.GetComponent<Rigidbody>().AddForce(0, 50, 0, ForceMode.Impulse);
+
+        }
         for (int i = 0; i < transform.childCount; i++)
         {
             for (int j = 0; j < transform.childCount; j++)
